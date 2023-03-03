@@ -9,6 +9,18 @@ public class Program
 
         app.MapGet("/", () => "Projeto WEB - LH Pets versão 1");
 
+        app.UseStaticFiles();
+        app.MapGet("/index", (HttpContext contexto) => {
+            contexto.Response.Redirect("index.html", false);
+
+        });
+
+        // instanciando banco
+        Banco dba = new Banco();
+        app.MapGet("/listaClientes", (HttpContext contexto) => {
+            contexto.Response.WriteAsync(dba.GetListaString());
+        });
+
         app.Run();
     }
 }
